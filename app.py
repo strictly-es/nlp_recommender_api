@@ -22,7 +22,7 @@ def pridect():
     reccomend_predict = request.json['reccomend']
     print(reccomend_predict)
 
-    url = "http://localhost:8888/ew-api/public/api/accessLogHelloRenoNoteKeyWordsController"
+    url = "http://ewapi.enjoyworks.jp/api/accessLogHelloRenoNoteKeyWords"
     r = requests.get(url)
     data = json.loads(r.text)
     df = pd.DataFrame(data)
