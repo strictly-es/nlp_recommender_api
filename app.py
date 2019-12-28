@@ -57,8 +57,9 @@ def pridect():
     arr = []
     print("Top 5 texts similar to "+reccomend_predict+" are:\n")
     for element in sorted_similar_texts:
-        arr.append(get_hello_reno_note_id_from_index(element[0]))
-        print(get_hello_reno_note_id_from_index(element[0]))
+        if(element[1] > 0.1):
+            arr.append(get_hello_reno_note_id_from_index(element[0]))
+            print(get_hello_reno_note_id_from_index(element[0]))
         # print(arr)
         i = i+1
         if i > 3:
