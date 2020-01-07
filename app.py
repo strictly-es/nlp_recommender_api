@@ -18,11 +18,12 @@ CORS(app)
 @app.route("/", methods=["POST"])
 def pridect():
 
-    # reccomend_predict = "ディープラーニング"
-    reccomend_predict = request.json['reccomend']
-    print(reccomend_predict)
+    # recomend_predict = "ディープラーニング"
+    recomend_predict = request.json['recomend']
+    print(recomend_predict)
 
     url = "http://ewapi.enjoyworks.jp/api/accessLogHelloRenoNoteKeyWords"
+    #url = "http://localhost:8888/ew-api/public/api/accessLogHelloRenoNoteKeyWords"
     r = requests.get(url)
     data = json.loads(r.text)
     df = pd.DataFrame(data)
@@ -46,7 +47,7 @@ def pridect():
     def get_hello_reno_note_id_from_index(index):
         return df[df.index == index]["hello_reno_note_id"].values[0]
 
-    text_index = get_index_from_hello_reno_note_id(reccomend_predict)
+    text_index = get_index_from_hello_reno_note_id(recomend_predict)
 
     similar_texts = list(enumerate(cosine_sim2[int(text_index)]))
 
@@ -55,7 +56,7 @@ def pridect():
 
     i = 0
     arr = []
-    print("Top 5 texts similar to "+reccomend_predict+" are:\n")
+    print("Top 5 texts similar to "+recomend_predict+" are:\n")
     for element in sorted_similar_texts:
         if(element[1] > 0.1):
             arr.append(get_hello_reno_note_id_from_index(element[0]))
