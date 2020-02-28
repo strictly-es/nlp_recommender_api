@@ -22,8 +22,7 @@ def pridect():
     recomend_predict = request.json['recomend']
     print(recomend_predict)
 
-    url = "http://ewapi.enjoyworks.jp/api/accessLogHelloRenoNoteKeyWords"
-    #url = "http://localhost:8888/ew-api/public/api/accessLogHelloRenoNoteKeyWords"
+    url = "http://localhost:8888/ew-api/public/api/accessLogHelloRenoNoteKeyWords"
     r = requests.get(url)
     data = json.loads(r.text)
     df = pd.DataFrame(data)
@@ -58,12 +57,12 @@ def pridect():
     arr = []
     print("Top 5 texts similar to "+recomend_predict+" are:\n")
     for element in sorted_similar_texts:
-        if(element[1] > 0.1):
+        if(element[1] > 0.1 and get_hello_reno_note_id_from_index(element[0]) != recomend_predict):
             arr.append(get_hello_reno_note_id_from_index(element[0]))
             print(get_hello_reno_note_id_from_index(element[0]))
         # print(arr)
         i = i+1
-        if i > 3:
+        if i > 4:
             break
     return jsonify(arr)
 
